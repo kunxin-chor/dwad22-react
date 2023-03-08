@@ -1,3 +1,5 @@
 body {
     background-color: skyblue;
+    background-image: url("./sushi.jfif");
+    background-size: cover;
 }
