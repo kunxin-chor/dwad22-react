@@ -2,6 +2,8 @@ import React from "react";  // const React = require('react')
 import MessageBox from "./MessageBox";
 import ImageBorderedFrame from "./ImageBorderedFrame";
 import AlertBox from "./AlertBox";
+import CustomImageFrame from "./CustomImageFrame";
+import CustomImageFrameEx from "./CustomImageFrameEx";
 
 // function sayGoodbye() {
 //   return (<React.Fragment>
@@ -9,6 +11,7 @@ import AlertBox from "./AlertBox";
 //     <p>Goodnight</p>
 //   </React.Fragment>);
 // }
+
 
 
 
@@ -30,6 +33,8 @@ function App() {
       <Goodbye/>
       <MessageBox/>
       <ImageBorderedFrame/>
+      <CustomImageFrame img={require("./udon.jfif")} />
+      <CustomImageFrameEx img="./udon.jfif" />
     </React.Fragment>
   );
 }
