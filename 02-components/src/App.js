@@ -1,6 +1,6 @@
 import React from "react";  // const React = require('react')
 import MessageBox from "./MessageBox";
-
+import ImageBorderedFrame from "./ImageBorderedFrame";
 
 // function sayGoodbye() {
 //   return (<React.Fragment>
@@ -8,6 +8,8 @@ import MessageBox from "./MessageBox";
 //     <p>Goodnight</p>
 //   </React.Fragment>);
 // }
+
+
 
 function Goodbye() {
   return (<React.Fragment>
@@ -22,6 +24,7 @@ function App() {
       <h1>Hello World</h1>
       <Goodbye/>
       <MessageBox/>
+      <ImageBorderedFrame/>
     </React.Fragment>
   );
 }
