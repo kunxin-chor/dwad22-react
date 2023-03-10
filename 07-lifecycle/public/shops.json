@@ -1,0 +1,23 @@
+[
+    {
+        "name": "MacDonalds",
+        "level": 1,
+        "unit-number": "2A"
+    },
+    {
+        "name": "Uniqlo",
+        "level": 1,
+        "unit_number": "03"
+    },
+    {
+        "name": "Challenge",
+        "level": 4,
+        "unit_number": "B"
+    },
+    {
+        "name": "Don Don Donki",
+        "level": "B1",
+        "unit_number": "2A"
+    }
+
+]

@@ -27,44 +27,48 @@ export default class SurveyForm extends React.Component {
                     <div>
                         <label>First Name:</label>
                         <input type="text" className="form-control" 
+                               name="firstName"
                                value={this.state.firstName} 
-                               onChange={this.updateFirstName} />
+                               onChange={this.updateFormField} />
                     </div>
                     <div>
                         <label>Favorite Colour:</label>
 
                         <input type="radio"
                                value="red" 
-                               name="color"
+                               name="colour"
                                className="form-check-input" 
                                checked={this.state.colour === "red"}
-                               onChange={this.updateColour}   
+                               onChange={this.updateFormField}   
                             />
                         <label className="form-check-label">Red</label>
 
                                          
                         <input type="radio"
                                value="blue" 
-                               name="color"
+                               name="colour"
                                className="form-check-input" 
                                checked={this.state.colour === "blue"}
-                               onChange={this.updateColour}
+                               onChange={this.updateFormField}
                         />
                         <label>Blue</label>
 
                         <input type="radio"
                                value="green" 
-                               name="color"
+                               name="colour"
                                className="form-check-input"
                                checked={this.state.colour === "green"}
-                               onChange={this.updateColour}
+                               onChange={this.updateFormField}
                         />
                         <label>Green</label>
                         
                     </div>
                     <div>
                         <label>Country:</label>
-                        <select className="form-control" value={this.state.country} onChange={this.updateCountry}>
+                        <select className="form-control" 
+                                name="country"
+                                value={this.state.country} 
+                                onChange={this.updateFormField}>
                             <option value="sg">Singapore</option>
                             <option value="my">Malaysia</option>
                             <option value="th">Thailand</option>
@@ -113,6 +117,34 @@ export default class SurveyForm extends React.Component {
         this.setState({
             "country": event.target.value
         })
+    }
+
+    updateFormField = (event) => {
+        console.log("event.target.name =", event.target.name);
+        console.log("event.target.value =", event.target.value);
+        // event.target.value contains the updated value of the <input> element
+        // event.target.name will contain the name of the <input> element that has been changed
+       
+        // if we use square brackeet in the key, JavaScript will subsitute the expression
+        // in there as if it is a variable
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+
+        // assume that `event.target.name` is "firstName"
+        //  [event.target.name]: event.target.value
+        /*
+            this.setState({
+                [event.target.name]: event.target.value
+            })
+             ==>
+
+             this.setState({
+                "firstName": event.target.value
+             })
+
+        */
+   
     }
 
     updateFruits = (event) => {
