@@ -19,24 +19,75 @@ export default class TaskList extends React.Component {
                 "done": false
             }
         ],
-        newTaskName: ""
+        newTaskName: "",
+        taskBeingModified: null,
+        modifiedTaskName: ""
     }
 
     renderTasks() {
         let jsx = [];
 
         for (let t of this.state.tasks) {
-            jsx.push(<li className="list-group-item" key={t._id}>
-                {t.description}
-                <input type="checkbox" 
-                       checked={t.done === true}
-                       onChange={()=>{
-                           this.toggleCheckbox(t._id)
-                       }}/>
+
+            // if the task that we are displaying (that is in `t`)
+            // is not the same as task being modified, then display the task normally
+            if (!this.state.taskBeingModified || t._id !== this.state.taskBeingModified._id) {
+                jsx.push(<li className="list-group-item" key={t._id}>
+                    {t.description}
+                    <input type="checkbox" 
+                        className="ms-3"
+                        checked={t.done === true}
+                        onChange={()=>{
+                            this.toggleCheckbox(t._id)
+                        }}/>
+                    <button className="ms-3 btn btn-primary btn-sm"
+                        onClick={()=>{
+                            // begin the editing of task
+                            this.beginEditTask(t);
+                        }}
+                >Edit</button>
             </li>)
+            } else {
+                jsx.push(<li className="list-group-item" key = {t._id}>
+                    <input type="text"
+                        value={this.state.modifiedTaskName}
+                        onChange={this.updateModifiedTaskName}
+                        />
+                    <button className="ms-3 btn btn-primary btn-sm" onClick={this.confirmEdit}>Confirm</button>
+
+                </li>)
+            }
+          
         }
 
         return jsx;
+    }
+
+    beginEditTask(task) {
+        this.setState({
+            "taskBeingModified":task,
+            "modifiedTaskName": task.description
+        })
+    }
+
+    confirmEdit = () => {
+        // clone the existing task
+        const modifiedTask = { ...this.state.taskBeingModified, "description": this.state.modifiedTaskName };
+        // modifiedTask.description = this.state.modifiedTaskName;
+
+        const indexBeingModified = this.state.tasks.findIndex(function(t){
+            return t._id === modifiedTask._id;
+        })
+
+        // find the left side of the modified task
+        const left = this.state.tasks.slice(0, indexBeingModified);
+        const right = this.state.tasks.slice(indexBeingModified+ 1);
+
+        const modified = [...left, modifiedTask, ...right];
+        this.setState({
+            "tasks": modified,
+            "taskBeingModified": null
+        })
     }
 
     toggleCheckbox(taskId) {
@@ -92,6 +143,12 @@ export default class TaskList extends React.Component {
     updateNewTaskName = (event) => {
         this.setState({
             "newTaskName": event.target.value
+        })
+    }
+
+    updateModifiedTaskName = (event) => {
+        this.setState({
+            "modifiedTaskName": event.target.value
         })
     }
 
