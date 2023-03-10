@@ -45,7 +45,13 @@ export default class TaskList extends React.Component {
                             // begin the editing of task
                             this.beginEditTask(t);
                         }}
-                >Edit</button>
+                    >Edit</button>
+                    <button className="ms-3 btn btn-danger btn-sm"
+                        onClick={()=>{
+                            this.deleteTask(t)
+                        }}
+                    
+                    >Delete</button>
             </li>)
             } else {
                 jsx.push(<li className="list-group-item" key = {t._id}>
@@ -87,6 +93,17 @@ export default class TaskList extends React.Component {
         this.setState({
             "tasks": modified,
             "taskBeingModified": null
+        })
+    }
+
+    deleteTask = (taskBeingDeleted)=>{
+        // get the index of the task we are deleting
+        const indexToDelete = this.state.tasks.findIndex(function(t){
+            return t._id === taskBeingDeleted._id
+        });
+
+        this.setState({
+            "tasks": [ ...this.state.tasks.slice(0, indexToDelete), ...this.state.tasks.slice(indexToDelete + 1)]
         })
     }
 
@@ -168,7 +185,8 @@ export default class TaskList extends React.Component {
 
         // 3. replace the original with the cloned
         this.setState({
-            "tasks": cloned
+            "tasks": cloned,
+            "newTaskName": ""
         })
     }
 
