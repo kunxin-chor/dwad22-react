@@ -14,9 +14,9 @@ class App extends React.Component {
 
   renderConfirmation() {
     if (this.state.wasButtonPressed) {
-      return <Confirmation firstName={this.state.firstName.slice()}
-                           lastName={this.state.lastName.slice()} 
-                           phoneNumber={this.state.phoneNumber.slice()}/>
+      return <Confirmation firstName={this.state.firstName}
+                           lastName={this.state.lastName} 
+                           phoneNumber={this.state.phoneNumber}/>
     } else {
       return null;
     }
