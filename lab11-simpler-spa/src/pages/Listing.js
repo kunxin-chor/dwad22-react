@@ -9,14 +9,16 @@ export default class Listing extends React.Component {
     // Listing is to display all the recipes,
     // in its state will be all the recipes
     state = {
-        data:[]
+        data:[],
+        hasLoaded: false
     }
 
     // componentDidMount happens after the first render
     async componentDidMount() {
         const response = await axios.get(this.BASE_API_URL + "recipes");
         this.setState({
-            "data": response.data
+            "data": response.data,
+            "hasLoaded": true
         })
     }
 
@@ -24,7 +26,9 @@ export default class Listing extends React.Component {
         return <React.Fragment>
             <h1>All Recipes</h1>
             {
-                this.state.data.map(r => <Recipe recipe={r} key={r._id}/>)
+                this.state.hasLoaded ?
+                    this.state.data.map(r => <Recipe recipe={r} key={r._id}/>) :
+                    <p>Loading, please wait</p>
             //     this.state.data.map(function(r){
             //         return <Recipe recipe={r}/>
             //     })
