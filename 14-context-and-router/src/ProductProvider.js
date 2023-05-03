@@ -1,15 +1,8 @@
-import "bootstrap/dist/css/bootstrap.min.css"
-
-// import in the context
 import ProductContext from "./ProductContext";
+import {useState, useMemo} from 'react'
 
-import ProductListing from "./ProductListing";
-
-import { useState, useMemo } from "react";
-import AddProduct from "./AddProduct";
-
-function App() {
-
+export default function ProductProvider(props) {
+    
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -33,6 +26,9 @@ function App() {
       products: () => {
         return products;
       },
+      getProductByID:(productId) => {
+        return products.find(p => p.id === productId)
+      },
       addProduct: (productName, cost) => {
         setProducts([...products, {
           id: Math.floor(Math.random() * 100000),
@@ -41,21 +37,13 @@ function App() {
         }])
       }
     }
-  }, [products]) // <-- only need to recreate the context
-  // object when the `products` state changes
-  
-  
-  
+  }, [products]);
+
 
   return (
-    <div className="container">
-      <h1>Products</h1>
-      <ProductContext.Provider value={context}>
-        <ProductListing />
-        <AddProduct />
-      </ProductContext.Provider>
-    </div>
+    <ProductContext.Provider value={context}>
+        {props.children}
+    </ProductContext.Provider>
   )
-}
 
-export default App;
+}

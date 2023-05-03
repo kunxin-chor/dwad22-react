@@ -45,17 +45,7 @@ function App() {
         setTodos([...todos.slice(0, taskIndex), clonedTask, ...todos.slice(taskIndex + 1)]);
     }, [todos]);
 
-    const saveTodos = useCallback(() => {
-        // we'll always have access to localstorage as long
-        // our React app is running on a browser
-        // first argument is the key to save to
-        // second argument is the data
-        localStorage.setItem('todos', JSON.stringify(todos)); // <--convert an array or object to a JSON string
-    }, [todos]);
-
-    const handleSelectFilter = useCallback((e) => {
-        setFilter(e.target.value);
-    }, [])
+   
 
     // useEffect allows us to create a "side effect"
     // two arguments
@@ -74,6 +64,18 @@ function App() {
         const storedTodos = JSON.parse(localStorage.getItem('todos'));
         setTodos(storedTodos);
     }, []);
+
+    const saveTodos = useCallback(() => {
+        // we'll always have access to localstorage as long
+        // our React app is running on a browser
+        // first argument is the key to save to
+        // second argument is the data
+        localStorage.setItem('todos', JSON.stringify(todos)); // <--convert an array or object to a JSON string
+    }, [todos]);
+
+    const handleSelectFilter = useCallback((e) => {
+        setFilter(e.target.value);
+    }, [])
 
     useEffect(()=>{
         saveTodos();
